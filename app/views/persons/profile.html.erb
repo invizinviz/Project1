@@ -1,0 +1,42 @@
+
+<div class='login'>
+  <h3>Hello <%= current_user.name.capitalize %></h3>
+  <% if current_user %>
+  <%#= current_user.email %>
+  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+  <% else %>
+  <div class="button-bar">
+    <ul class="stack button-group">
+      <li> <%= link_to "Sign In", new_user_session_path %> </li>
+      <li> <%= link_to "Register", new_user_registration_path %> </li>
+    </ul>
+  </div>
+  <% end %>
+  <br>
+  <br>
+  <%= link_to (image_tag("ttt.png", width: "100px")), new_ttt_path %>
+</div>
+
+<div class="main_form">
+  <div class="row">
+    <div class="large-6 columns">
+      <p>Active games: </p>
+      <% current_user.active_matches.sort.reverse.each do |match| %>
+      <%= link_to "Game #{match.id}", ttt_path(id: match.id) %>
+      <br>
+      <% end %>
+    </div>
+
+    <div class="large-6 columns">
+      <p>Leaders:</p>
+      <ol>
+        <% Ttt.leader_board.each do |leader| %>
+        <li>
+          <%= leader %> <br>
+        </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>
+

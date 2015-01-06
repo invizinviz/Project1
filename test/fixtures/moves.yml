@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mark: MyString
+  user_id: 1
+  position: 1
+  ttt_id: 1
+
+two:
+  mark: MyString
+  user_id: 1
+  position: 1
+  ttt_id: 1

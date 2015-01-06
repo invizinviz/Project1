@@ -1,0 +1,9 @@
+<% if @move && @move.errors.any? %>
+<div id="error_explanation">
+  <ul>
+    <% @move.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  </ul>
+  <% end %>
+</div>
+<% end %>

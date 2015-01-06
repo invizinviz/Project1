@@ -1,0 +1,50 @@
+<div class="main_form">
+  <h3>Your sign is:
+    <% if @ttt.player_x_id == current_user.id %>
+    X
+    <% else %>
+    O
+    <% end %>
+  </h3>
+
+  <h3>Your opponent is:
+    <% if current_user.id == @ttt.player_x_id %>
+    <%= User.find(@ttt.player_o_id).name %>
+    <% else %>
+    <%= User.find(@ttt.player_x_id).name %>
+    <% end %>
+  </h3>
+
+  <% if @ttt.moves.any? && @ttt.moves.last.user_id != current_user.id %>
+  <h3>your turn</h3>
+  <% end %>
+
+  <%= render partial: "errors", :locals => {move: @move} %>
+
+  <table class="board">
+    <% board = [0,1,2,3,4,5,6,7,8] %>
+    <% board.each_slice(3) do |slice| %>
+    <tr>
+      <% slice.each do |cell| %>
+      <td>
+        <% if @ttt.moves.find_by_position(cell) && @ttt.moves.find_by_position(cell).user_id == @ttt.player_x_id  %>
+        <%= image_tag("x_1.png") %>
+        <% elsif @ttt.moves.find_by_position(cell) && @ttt.moves.find_by_position(cell).user_id == @ttt.player_o_id  %>
+        <%= image_tag("o.png") %>
+        <% else %>
+
+        <%= link_to (image_tag("white-square.png")), add_move_path(id: @ttt.id, position: cell), method: :post %>
+
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+  <br>
+
+  <%= @errors %>
+
+  <%= link_to "Back", user_root_path %>
+
+</div>
